@@ -10,15 +10,15 @@ public class Reader {
     ArrayList<Persons> personsList;
     ArrayList<String> detailList;
 
-
     public Reader(){
         personsList = new ArrayList<>();
         detailList = new ArrayList<>();
     }
 
- public void readFile(String fileName){
+ public  void readFile(String fileName){
 
         this.fileName = fileName;
+
 
      // This will reference one line at a time
      String line = null;
@@ -34,6 +34,7 @@ public class Reader {
 
          while((line = bufferedReader.readLine()) != null) {
              detailList.add(line);
+             EmailClient.applicantCount++;
            String[] detail = line.split(",");
            if(detail.length == 3){                      //if the values in the format is 3, it it official
                Persons officialPerson = new Official();

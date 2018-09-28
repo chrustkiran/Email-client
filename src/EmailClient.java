@@ -9,6 +9,7 @@ public class EmailClient {
     private static Reader reader;
     private static ArrayList<String> writingList;
     private static Writer writer;
+    public static int applicantCount = 0;
     public EmailClient(){
 
     }
@@ -34,7 +35,7 @@ public class EmailClient {
                 + "5 - Printing out the number of recipient objects in the application");
 
         int option = sc.nextInt();
-
+        sc.nextLine(); //to ommit the new line after reading int
         switch(option){
             case 1:
                 // input format - Official: nimal,nimal@gmail.com,ceo
@@ -42,7 +43,7 @@ public class EmailClient {
                 // code to add a new recipient
                 // store details in clientList.txt file
                 // Hint: use methods for reading and writing files
-                sc.nextLine();
+
                 String input = null;
 
                 while(true){
@@ -65,6 +66,7 @@ public class EmailClient {
             case 2:
                 // input format - email, subject, content
                 // code to send an email
+
                 String mailDetail = sc.nextLine();
                 String [] mailDetailArray  = mailDetail.split(",");
                 Mail mail = new Mail();
@@ -75,27 +77,37 @@ public class EmailClient {
                 sendingEmail.sendMail(mail);
 
 
+                Serializer serializer = new Serializer();
+                serializer.save(mail);
                 break;
             case 3:
                 // input format - yyyy/MM/dd (ex: 2018/09/17)
                 // code to print recipients who have birthdays on the given date
+                String date = sc.nextLine();
+                for(Persons persons : reader.getPersonsDetail()){
+                    if(persons instanceof Friend){
+                        if(((Friend) persons).getDob().equals(date)){
+                            System.out.println(persons.getName());
+                        }
+                    }
+                }
                 break;
             case 4:
                 // input format - yyyy/MM/dd (ex: 2018/09/17)
                 // code to print the details of all the emails sent on the input date
+                String mailDate = sc.nextLine();
+                Deserializer deserializer = new Deserializer();
+                deserializer.read(mailDate);
                 break;
             case 5:
                 // code to print the number of recipient objects in the application
+                System.out.println("Applicant count totla is "+applicantCount);
                 break;
 
         }
 
 
-        System.out.println(reader.getPersonsDetail().size());
 
-        for (Persons person:  reader.personsList) {
-           System.out.println( person.getName());
-        }
 
 
     }
