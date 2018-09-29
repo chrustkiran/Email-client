@@ -1,7 +1,9 @@
-public class Mail {
- private String receiverAddress;
- private String subject;
- private String body;
+import java.io.Serializable;
+
+public class Mail implements Serializable {
+  String receiverAddress;
+  String subject;
+  String body;
 
  public String getReceiverAddress() {
   return receiverAddress;
