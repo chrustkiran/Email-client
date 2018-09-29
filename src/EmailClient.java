@@ -10,22 +10,33 @@ public class EmailClient {
     private static ArrayList<String> writingList;
     private static Writer writer;
     public static int applicantCount = 0;
+    public static ArrayList<String> mailSentList;
+
     public EmailClient(){
 
     }
 
 
     public static void main(String[] args){
+
         sc = new Scanner(System.in);
         handler = new Handler();
         reader = new Reader();
         writingList = new ArrayList<>();
+        mailSentList = new ArrayList<>();
         reader.readFile("clientList.txt");
         System.out.println("System has started...");
         System.out.println("Now please enter your name");
         String name  = sc.nextLine();
         handler.setMyname(name);
         System.out.println("Your name is set to "+handler.getMyname());
+
+        for (Persons person:reader.getPersonsDetail()) {
+            if(person instanceof Friend){
+                ((Friend) person).receiveBirthdayMail();   //Automatically send mail if someone has a birthday today
+                mailSentList.add(person.getName());
+            }
+        }
 
         System.out.println("Enter option type: \n"
                 + "1 - Adding a new recipient\n"
@@ -44,6 +55,7 @@ public class EmailClient {
                 // store details in clientList.txt file
                 // Hint: use methods for reading and writing files
 
+                System.out.println("You have pressed 1\ninput format - nimal,nimal@gmail.com,ceo\ntype quit() to save and to close");
                 String input = null;
 
                 while(true){
@@ -57,7 +69,7 @@ public class EmailClient {
 
                 writer = new Writer();
                 writer.setFileName("clientList.txt");
-                writingList.addAll(reader.getDetailList());
+                writingList.addAll(reader.getDetailList());     //adding existing data to write
                 Collections.reverse(writingList);
                 writer.writeFile(writingList);
 
@@ -70,7 +82,7 @@ public class EmailClient {
                 String mailDetail = sc.nextLine();
                 String [] mailDetailArray  = mailDetail.split(",");
                 Mail mail = new Mail();
-                mail.setRecevierMail(mailDetailArray[0]);
+                mail.setReceiverAddress(mailDetailArray[0]);
                 mail.setSubject(mailDetailArray[1]);
                 mail.setBody(mailDetailArray[2]);
                 SendingEmail sendingEmail = new SendingEmail();
@@ -78,7 +90,7 @@ public class EmailClient {
 
 
                 Serializer serializer = new Serializer();
-                serializer.save(mail);
+                serializer.save(mail);      //save into hard disk
                 break;
             case 3:
                 // input format - yyyy/MM/dd (ex: 2018/09/17)

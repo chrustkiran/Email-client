@@ -1,31 +1,31 @@
-public  class Mail {
-  private String subject ;
-  String recevierMail;
-  String body;
+public class Mail {
+ private String receiverAddress;
+ private String subject;
+ private String body;
 
-  public String getSubject() {
-    return subject;
-  }
+ public String getReceiverAddress() {
+  return receiverAddress;
+ }
 
-  public void setSubject(String subject) {
-    this.subject = subject;
-  }
+ public void setReceiverAddress(String receiverAddress) {
+  this.receiverAddress = receiverAddress;
+ }
 
-  public String getRecevierMail() {
-    return recevierMail;
-  }
+ public String getSubject() {
+  return subject;
+ }
 
-  public void setRecevierMail(String recevierMail) {
-    this.recevierMail = recevierMail;
-  }
+ public void setSubject(String subject) {
+  this.subject = subject;
+ }
 
-  public String getBody() {
-    return body;
-  }
+ public String getBody() {
+  return body;
+ }
 
-  public void setBody(String body) {
-    this.body = body;
-  }
+ public void setBody(String body) {
+  this.body = body;
+ }
 }
 
 

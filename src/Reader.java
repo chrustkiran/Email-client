@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Reader {
     private String fileName;
-    ArrayList<Persons> personsList;
-    ArrayList<String> detailList;
+    private ArrayList<Persons> personsList;
+    private ArrayList<String> detailList;
 
     public Reader(){
         personsList = new ArrayList<>();

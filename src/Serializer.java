@@ -5,9 +5,9 @@ import java.util.TimeZone;
 
 public class Serializer {
     private Mail mail;
-    SimpleDateFormat sdf;
+    private SimpleDateFormat sdf;
     public Serializer(){
-        sdf = new SimpleDateFormat("yyyy MMM dd");
+        sdf = new SimpleDateFormat("yyyy/MM/dd");
         sdf.setTimeZone(TimeZone.getTimeZone("Asia/Colombo"));
     }
     public void save(Mail mail){
@@ -31,8 +31,7 @@ public class Serializer {
 
     private String uniquefileName(){
         String filename  = "/tmp/"+sdf.format(Calendar.getInstance().getTimeInMillis());
-        File file = new File(filename+".ser");
-        while(file.exists()){
+        while(new File(filename+".ser").exists()){
             int count = 1;
             filename = filename+"-"+count;
             count++;

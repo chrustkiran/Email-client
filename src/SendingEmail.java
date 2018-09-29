@@ -17,12 +17,14 @@ public class SendingEmail {
 
     private String subject;
     private String body;
+    private String recevierAddress;
     private Mail mail;
 
 
     public void sendMail(Mail mail){
         this.subject = mail.getSubject();
         this.body = mail.getBody();
+        this.recevierAddress = mail.getReceiverAddress();
 
         final String username = "nimalpereracs@gmail.com";
         final String password = "cse@1234";
@@ -45,7 +47,7 @@ public class SendingEmail {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("nimalpereracs@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("kiran.chrustkiran@gmail.com"));
+                    InternetAddress.parse(this.recevierAddress));
             message.setSubject(subject);
             message.setText(body);
 

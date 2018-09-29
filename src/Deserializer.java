@@ -7,8 +7,9 @@ public class Deserializer {
     public void read(String date) {
         Mail mail = null;
         boolean checker = true;
+        String fileName = date;
         while (checker) {
-            String fileName = date;
+
             int count = 1;
             try {
                 FileInputStream fileIn = new FileInputStream("/tmp/"+fileName+".ser");
@@ -19,20 +20,19 @@ public class Deserializer {
             } catch (IOException i) {
                 i.printStackTrace();
                 checker = false;
-                return;
+                break;
             } catch (ClassNotFoundException c) {
-                System.out.println("Employee class not found");
+                System.out.println("Mail class not found");
                 c.printStackTrace();
-                return;
+                break;
             }
-
             System.out.println("Deserialized Mail...");
-       System.out.println("Receiver: " + mail.getRecevierMail());
-        System.out.println("Subject: " + mail.getSubject());
-        System.out.println("Body: " + mail.getBody());
+            System.out.println("Receiver: " + mail.getReceiverAddress());
+            System.out.println("Subject: " + mail.getSubject());
+            System.out.println("Body: " + mail.getBody());
 
+            fileName = fileName + "-" + count;
 
-        fileName = fileName+"-"+count;
         }
 
     }
